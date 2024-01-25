@@ -1,7 +1,13 @@
 from nuscenes.nuscenes import NuScenes
+import yaml
+import os
 
-# nusc = NuScenes(version='v1.0-test', dataroot='/home/captainlevi/Documents/UCSD_lab_project/AVL/data/nuScenes_dataset/nuScenes/v1.0-test', verbose=True)
-nusc = NuScenes(version='v1.0-mini', dataroot='/home/captainlevi/Documents/UCSD_lab_project/AVL/data/nuScenes_dataset/nuscenes_pgp/nuscenes_mini', verbose=True)
+config_file = "tut_config.yaml"
+with open(config_file, "r") as f:
+    config = yaml.safe_load(f)
+dataroot = os.path.join(config["nuscenes_root"], config["nuscenes_version"])
+
+nusc = NuScenes(version=config["nuscenes_version"], dataroot=dataroot, verbose=True)
 
 
 my_scene = nusc.scene[0]
